@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  openerp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=file:/app/db/production.db
+    volumes:
+      - openerp_data:/app/db
+    restart: unless-stopped
+
+volumes:
+  openerp_data:
+    driver: local
