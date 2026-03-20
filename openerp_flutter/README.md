@@ -10,9 +10,9 @@ This is the Flutter version of OpenERP, converted from the Next.js web applicati
 
 - ✅ **Dashboard** - Analytics, KPIs, charts with fl_chart
 - ✅ **CRM** - Customer & Supplier management with full CRUD
-- ⏳ **Inventory** - Product & stock management (Phase 3 Part 2)
-- ⏳ **Invoicing** - Sales invoices with multi-item support (Phase 3 Part 2)
-- ⏳ **Purchasing** - Purchase orders management (Phase 4)
+- ✅ **Inventory** - Product & stock management with categories
+- ✅ **Invoicing** - Sales invoices with multi-item support and stock tracking
+- ✅ **Purchasing** - Purchase orders with multi-item support and stock tracking
 - ⏳ **Accounting** - Chart of accounts, journal entries (Phase 4)
 - ⏳ **Reports** - Financial reports & export (Phase 4)
 
@@ -42,12 +42,18 @@ lib/
 │   └── providers/      # Riverpod providers
 │       ├── customers_provider.dart
 │       ├── suppliers_provider.dart
-│       └── dashboard_provider.dart
+│       ├── dashboard_provider.dart
+│       ├── products_provider.dart
+│       ├── invoices_provider.dart
+│       └── purchases_provider.dart
 ├── ui/                 # UI layer
 │   ├── screens/        # Screen widgets
 │   │   ├── dashboard/  # Dashboard with fl_chart
 │   │   ├── customers/  # Full CRUD customers
-│   │   └── suppliers/  # Full CRUD suppliers
+│   │   ├── suppliers/  # Full CRUD suppliers
+│   │   ├── products/   # Products with categories
+│   │   ├── invoices/   # Sales invoices (master-detail)
+│   │   └── purchases/  # Purchase orders (master-detail)
 │   └── widgets/        # Reusable widgets
 └── main.dart           # Entry point
 ```
@@ -64,9 +70,9 @@ lib/
 - **Accounting**: Accounts, JournalEntries, JournalLines
 - **Analytics**: ActivityLogs
 
-## Implemented Screens (Phase 3 Part 1)
+## Implemented Screens
 
-### Dashboard
+### Dashboard (Phase 3 Part 1)
 - Sales and purchases trend charts (LineChart)
 - Profit summary with PieChart
 - Recent invoices and purchases lists
@@ -75,7 +81,7 @@ lib/
 - Responsive layout (Desktop/Tablet/Mobile)
 - RTL (Right-to-Left) support
 
-### Customers
+### Customers (Phase 3 Part 1)
 - Full CRUD operations (Create, Read, Update, Delete)
 - Search and filter functionality
 - Data table view (Desktop)
@@ -84,7 +90,7 @@ lib/
 - Balance and credit limit tracking
 - Active/inactive status toggle
 
-### Suppliers
+### Suppliers (Phase 3 Part 1)
 - Full CRUD operations (Create, Read, Update, Delete)
 - Search and filter functionality
 - Data table view (Desktop)
@@ -92,6 +98,49 @@ lib/
 - Supplier details dialog
 - Balance tracking (payables)
 - Active/inactive status toggle
+
+### Products (Phase 3 Part 2)
+- Full CRUD operations with SKU management
+- Categories management in separate tab
+- Stock level indicators (low stock, out of stock, available)
+- Unit of measurement support (piece, kg, liter, meter, box)
+- Cost price and sale price tracking
+- Search by name, SKU, or barcode
+- Filter by category
+- Responsive data table and card views
+
+### Invoices (Phase 3 Part 2)
+- Master-detail UI for invoice management
+- Multi-item invoice creation
+- Automatic subtotal, tax (15% VAT), and total calculation
+- Invoice status workflow (draft → confirmed → paid → cancelled)
+- Payment tracking with progress indicators
+- **Automatic stock deduction** on invoice confirmation
+- **Customer balance updates** on confirmation
+- Stock restoration on cancellation
+- Responsive layout with invoice list and detail panel
+
+### Purchases (Phase 3 Part 2)
+- Master-detail UI for purchase order management
+- Multi-item purchase order creation
+- Shipping cost calculation
+- Purchase status workflow (draft → confirmed → received → cancelled)
+- **Goods receipt with automatic stock addition**
+- Supplier payment tracking
+- **Supplier balance updates**
+- Responsive layout with purchase list and detail panel
+
+## Automatic Stock Management
+
+The system automatically manages inventory levels:
+
+| Action | Stock Impact | Balance Impact |
+|--------|--------------|----------------|
+| Confirm Invoice | Deduct quantities | Increase customer receivables |
+| Cancel Confirmed Invoice | Restore quantities | Decrease customer receivables |
+| Receive Purchase Order | Add quantities | Increase supplier payables |
+| Cancel Received Purchase | No change (irreversible) | Decrease supplier payables |
+| Record Payment | No change | Decrease receivables/payables |
 
 ## Getting Started
 
@@ -175,10 +224,13 @@ This project uses code generation for:
 - Responsive layouts
 - RTL support
 
-### Phase 3 (Part 2): Core UI Conversion (Upcoming)
-- Products management
-- Invoices management
-- Purchases management
+### Phase 3 (Part 2): Core UI Conversion ✅
+- Products management with categories
+- Invoices management with multi-item support
+- Purchases management with multi-item support
+- Automatic stock level updates
+- Customer/Supplier balance tracking
+- Master-detail responsive layouts
 
 ### Phase 4: Business Logic & Integration (Upcoming)
 - Accounting module
