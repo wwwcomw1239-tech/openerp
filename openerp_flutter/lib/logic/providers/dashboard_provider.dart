@@ -2,7 +2,6 @@ import 'package:drift/drift.dart' as drift;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../data/database/drift/database.dart';
 import 'database_provider.dart';
 
 part 'dashboard_provider.g.dart';
