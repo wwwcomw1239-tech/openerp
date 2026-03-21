@@ -1,0 +1,9 @@
+// OpenERP Modules - Barrel Export
+export { Dashboard } from './dashboard'
+export { CustomersModule } from './customers'
+export { SuppliersModule } from './suppliers'
+export { ProductsModule } from './products'
+export { InvoicesModule } from './invoices'
+export { PurchasesModule } from './purchases'
+export { AccountingModule } from './accounting'
+export { ReportsModule } from './reports'

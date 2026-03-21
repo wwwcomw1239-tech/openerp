@@ -1,0 +1,8 @@
+# Build configuration for Drift code generation
+targets:
+  $default:
+    builders:
+      drift_dev:
+        options:
+          # Generate connect constructor
+          generate_connect_constructor: true
