@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../data/database/drift/app_database.dart';
+import '../../data/database/drift/database.dart';
 import '../../data/database/drift/database.dart';
 import 'database_provider.dart';
 
@@ -283,7 +283,7 @@ class AccountsNotifier extends _$AccountsNotifier {
     );
   }
 
-  Future<void> update(String id, AccountFormData data) async {
+  Future<void> updateItem(String id, AccountFormData data) async {
     final db = ref.read(databaseProvider);
     await (db.update(db.accounts)..where((t) => t.id.equals(id))).write(
       AccountsCompanion(

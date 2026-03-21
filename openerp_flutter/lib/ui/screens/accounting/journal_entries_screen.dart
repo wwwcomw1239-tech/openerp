@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' hide TextDirection;
 
 import '../../../logic/providers/journal_entries_provider.dart';
 import '../../../logic/providers/accounts_provider.dart';
@@ -334,7 +334,7 @@ class _JournalEntriesScreenState extends ConsumerState<JournalEntriesScreen> {
               border: Border.all(color: Colors.grey[200]!),
             ),
             child: DataTable(
-              headingRowColor: WidgetStateProperty.all(AppTheme.primaryColor.withOpacity(0.1)),
+              headingRowColor: MaterialStateProperty.all(AppTheme.primaryColor.withOpacity(0.1)),
               columns: const [
                 DataColumn(label: Text('الحساب')),
                 DataColumn(label: Text('البيان')),

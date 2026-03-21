@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' hide TextDirection;
 
 import '../../../logic/providers/invoices_provider.dart';
 import '../../../logic/providers/customers_provider.dart';
@@ -386,7 +386,7 @@ class _InvoicesScreenState extends ConsumerState<InvoicesScreen> {
               border: Border.all(color: Colors.grey[200]!),
             ),
             child: DataTable(
-              headingRowColor: WidgetStateProperty.all(AppTheme.primaryColor.withOpacity(0.1)),
+              headingRowColor: MaterialStateProperty.all(AppTheme.primaryColor.withOpacity(0.1)),
               columns: const [
                 DataColumn(label: Text('المنتج')),
                 DataColumn(label: Text('الكمية')),
@@ -662,17 +662,17 @@ class _InvoicesScreenState extends ConsumerState<InvoicesScreen> {
 }
 
 // Invoice Form Dialog with multi-item support
-class InvoiceFormDialog extends StatefulWidget {
+class InvoiceFormDialog extends ConsumerStatefulWidget {
   final InvoiceModel? invoice;
   final Future<void> Function(InvoiceFormData) onSave;
 
   const InvoiceFormDialog({super.key, this.invoice, required this.onSave});
 
   @override
-  State<InvoiceFormDialog> createState() => _InvoiceFormDialogState();
+  ConsumerState<InvoiceFormDialog> createState() => _InvoiceFormDialogState();
 }
 
-class _InvoiceFormDialogState extends State<InvoiceFormDialog> {
+class _InvoiceFormDialogState extends ConsumerState<InvoiceFormDialog> {
   final _formKey = GlobalKey<FormState>();
   late InvoiceFormData _formData;
   bool _isLoading = false;

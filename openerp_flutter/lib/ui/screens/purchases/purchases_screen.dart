@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' hide TextDirection;
 
 import '../../../logic/providers/purchases_provider.dart';
 import '../../../logic/providers/suppliers_provider.dart';
@@ -378,10 +378,10 @@ class _PurchasesScreenState extends ConsumerState<PurchasesScreen> {
               border: Border.all(color: Colors.grey[200]!),
             ),
             child: DataTable(
-              headingRowColor: WidgetStateProperty.all(AppTheme.warningColor.withOpacity(0.1)),
+              headingRowColor: MaterialStateProperty.all(AppTheme.warningColor.withOpacity(0.1)),
               columns: const [
                 DataColumn(label: Text('المنتج')),
-                DataColumn(label: 'الكمية'),
+                DataColumn(label: Text('الكمية')),
                 DataColumn(label: Text('السعر')),
                 DataColumn(label: Text('الإجمالي')),
               ],
@@ -675,17 +675,17 @@ class _PurchasesScreenState extends ConsumerState<PurchasesScreen> {
 }
 
 // Purchase Form Dialog with multi-item support
-class PurchaseFormDialog extends StatefulWidget {
+class PurchaseFormDialog extends ConsumerStatefulWidget {
   final PurchaseModel? purchase;
   final Future<void> Function(PurchaseFormData) onSave;
 
   const PurchaseFormDialog({super.key, this.purchase, required this.onSave});
 
   @override
-  State<PurchaseFormDialog> createState() => _PurchaseFormDialogState();
+  ConsumerState<PurchaseFormDialog> createState() => _PurchaseFormDialogState();
 }
 
-class _PurchaseFormDialogState extends State<PurchaseFormDialog> {
+class _PurchaseFormDialogState extends ConsumerState<PurchaseFormDialog> {
   final _formKey = GlobalKey<FormState>();
   late PurchaseFormData _formData;
   bool _isLoading = false;

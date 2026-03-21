@@ -1,7 +1,7 @@
 name: openerp_flutter
 description: Open Source ERP System - Flutter Desktop & Mobile Application
 publish_to: 'none'
-version: 1.0.0+1
+version: 1.0.4+4
 
 environment:
   sdk: '>=3.2.0 <4.0.0'
@@ -16,7 +16,7 @@ dependencies:
   
   # Database - Drift (SQLite)
   drift: ^2.14.1
-  sqlite3_flutter_libs: ^0.5.18
+  sqlite3_flutter_libs: 0.5.22
   
   # Navigation
   go_router: ^13.1.0

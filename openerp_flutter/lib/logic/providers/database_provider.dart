@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../data/database/drift/app_database.dart';
+import '../../data/database/drift/database.dart';
 
 /// Database provider singleton
 /// Provides the Drift database instance throughout the app

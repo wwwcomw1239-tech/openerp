@@ -2,7 +2,7 @@ import 'package:drift/drift.dart' as drift;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../data/database/drift/app_database.dart';
+import '../../data/database/drift/database.dart';
 import 'database_provider.dart';
 
 part 'dashboard_provider.g.dart';
@@ -128,10 +128,10 @@ List<MonthlyData> _generateMonthlyTrend<T>(
 Future<List<InvoiceSummary>> recentInvoices(RecentInvoicesRef ref) async {
   final db = ref.watch(databaseProvider);
   
-  final invoices = await (db.select(db.invoices)
-        ..orderBy([(t) => drift.OrderingTerm.desc(t.createdAt)])
-        .limit(5))
-      .get();
+  final query = db.select(db.invoices)
+    ..orderBy([(t) => drift.OrderingTerm.desc(t.createdAt)])
+    ..limit(5);
+  final invoices = await query.get();
   
   final summaries = <InvoiceSummary>[];
   for (final invoice in invoices) {
@@ -176,10 +176,10 @@ class InvoiceSummary {
 Future<List<PurchaseSummary>> recentPurchases(RecentPurchasesRef ref) async {
   final db = ref.watch(databaseProvider);
   
-  final purchases = await (db.select(db.purchases)
-        ..orderBy([(t) => drift.OrderingTerm.desc(t.createdAt)])
-        .limit(5))
-      .get();
+  final query = db.select(db.purchases)
+    ..orderBy([(t) => drift.OrderingTerm.desc(t.createdAt)])
+    ..limit(5);
+  final purchases = await query.get();
   
   final summaries = <PurchaseSummary>[];
   for (final purchase in purchases) {

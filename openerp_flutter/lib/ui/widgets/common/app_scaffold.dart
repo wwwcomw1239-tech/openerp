@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../logic/providers/app_state_provider.dart';
-import '../../logic/providers/auth_provider.dart';
+import '../../../logic/providers/app_state_provider.dart';
+import '../../../logic/providers/auth_provider.dart';
 
 /// Main app scaffold with navigation drawer
 class AppScaffold extends ConsumerWidget {

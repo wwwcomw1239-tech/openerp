@@ -3,7 +3,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' hide TextDirection;
 import 'package:flutter/services.dart';
 
 /// PDF Export Service with Arabic RTL support
@@ -54,10 +54,8 @@ class PdfExportService {
     pdf.addPage(pw.MultiPage(
       pageFormat: PdfPageFormat.a4,
       margin: const pw.EdgeInsets.all(40),
-      textDirection: pw.TextDirection.rtl,
       build: (context) => [
-        pw.Directionality(
-          textDirection: pw.TextDirection.rtl,
+        pw.Directionality(textDirection: pw.TextDirection.rtl,
           child: pw.Column(
             crossAxisAlignment: pw.CrossAxisAlignment.start,
             children: [
@@ -84,7 +82,6 @@ class PdfExportService {
               pw.SizedBox(height: 20),
               pw.Table(
                 border: pw.TableBorder.all(color: PdfColors.grey300),
-                textDirection: pw.TextDirection.rtl,
                 children: [
                   pw.TableRow(
                     decoration: const pw.BoxDecoration(color: PdfColors.blue50),
@@ -159,10 +156,8 @@ class PdfExportService {
     pdf.addPage(pw.MultiPage(
       pageFormat: PdfPageFormat.a4,
       margin: const pw.EdgeInsets.all(40),
-      textDirection: pw.TextDirection.rtl,
       build: (context) => [
-        pw.Directionality(
-          textDirection: pw.TextDirection.rtl,
+        pw.Directionality(textDirection: pw.TextDirection.rtl,
           child: pw.Column(
             children: [
               pw.Center(child: pw.Text('ميزان المراجعة', style: arabicBoldStyle.copyWith(fontSize: 24))),
@@ -223,10 +218,8 @@ class PdfExportService {
     pdf.addPage(pw.MultiPage(
       pageFormat: PdfPageFormat.a4,
       margin: const pw.EdgeInsets.all(40),
-      textDirection: pw.TextDirection.rtl,
       build: (context) => [
-        pw.Directionality(
-          textDirection: pw.TextDirection.rtl,
+        pw.Directionality(textDirection: pw.TextDirection.rtl,
           child: pw.Column(
             children: [
               pw.Center(child: pw.Text('قائمة الدخل', style: arabicBoldStyle.copyWith(fontSize: 24))),
@@ -315,10 +308,8 @@ class PdfExportService {
     pdf.addPage(pw.MultiPage(
       pageFormat: PdfPageFormat.a4,
       margin: const pw.EdgeInsets.all(40),
-      textDirection: pw.TextDirection.rtl,
       build: (context) => [
-        pw.Directionality(
-          textDirection: pw.TextDirection.rtl,
+        pw.Directionality(textDirection: pw.TextDirection.rtl,
           child: pw.Column(
             children: [
               pw.Center(child: pw.Text('الميزانية العمومية', style: arabicBoldStyle.copyWith(fontSize: 24))),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' hide TextDirection;
 
 import '../../../logic/providers/customers_provider.dart';
 import '../../../core/theme/app_theme.dart';
@@ -315,7 +315,7 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
       ),
       child: SingleChildScrollView(
         child: DataTable(
-          headingRowColor: WidgetStateProperty.all(AppTheme.primaryColor.withOpacity(0.1)),
+          headingRowColor: MaterialStateProperty.all(AppTheme.primaryColor.withOpacity(0.1)),
           columns: const [
             DataColumn(label: Text('الاسم', style: TextStyle(fontWeight: FontWeight.bold))),
             DataColumn(label: Text('البريد الإلكتروني', style: TextStyle(fontWeight: FontWeight.bold))),
@@ -520,7 +520,7 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
         onSave: (data) async {
           final notifier = ref.read(customersNotifierProvider.notifier);
           if (customer != null) {
-            await notifier.update(customer.id, data);
+            await notifier.updateItem(customer.id, data);
           } else {
             await notifier.create(data);
           }
@@ -765,7 +765,7 @@ class _CustomerFormDialogState extends State<CustomerFormDialog> {
                           initialValue: _formData.creditLimit.toString(),
                           decoration: const InputDecoration(
                             labelText: 'حد الائتمان',
-                            prefixIcon: Icon(Icons.credit_limit),
+                            prefixIcon: Icon(Icons.account_balance_wallet),
                             suffixText: 'ر.س',
                           ),
                           keyboardType: TextInputType.number,
@@ -935,7 +935,7 @@ class CustomerDetailsDialog extends StatelessWidget {
                       isHighlighted: true,
                     ),
                     _buildDetailRow(
-                      Icons.credit_limit,
+                      Icons.account_balance_wallet,
                       'حد الائتمان',
                       NumberFormat.currency(locale: 'ar_SA', symbol: 'ر.س').format(customer.creditLimit),
                     ),

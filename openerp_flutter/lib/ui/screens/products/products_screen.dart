@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' hide TextDirection;
 
 import '../../../logic/providers/products_provider.dart';
 import '../../../core/theme/app_theme.dart';
@@ -322,7 +322,7 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen>
       ),
       child: SingleChildScrollView(
         child: DataTable(
-          headingRowColor: WidgetStateProperty.all(AppTheme.primaryColor.withOpacity(0.1)),
+          headingRowColor: MaterialStateProperty.all(AppTheme.primaryColor.withOpacity(0.1)),
           columns: const [
             DataColumn(label: Text('المنتج', style: TextStyle(fontWeight: FontWeight.bold))),
             DataColumn(label: Text('SKU', style: TextStyle(fontWeight: FontWeight.bold))),
@@ -565,7 +565,7 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen>
         ],
       ),
       child: DataTable(
-        headingRowColor: WidgetStateProperty.all(AppTheme.primaryColor.withOpacity(0.1)),
+        headingRowColor: MaterialStateProperty.all(AppTheme.primaryColor.withOpacity(0.1)),
         columns: const [
           DataColumn(label: Text('التصنيف', style: TextStyle(fontWeight: FontWeight.bold))),
           DataColumn(label: Text('الوصف', style: TextStyle(fontWeight: FontWeight.bold))),
@@ -727,7 +727,7 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen>
           onSave: (data) async {
             final notifier = ref.read(productsNotifierProvider.notifier);
             if (product != null) {
-              await notifier.update(product.id, data);
+              await notifier.updateItem(product.id, data);
             } else {
               await notifier.create(data);
             }
@@ -751,7 +751,7 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen>
         onSave: (data) async {
           final notifier = ref.read(categoriesNotifierProvider.notifier);
           if (category != null) {
-            await notifier.update(category.id, data);
+            await notifier.updateItem(category.id, data);
           } else {
             await notifier.create(data);
           }

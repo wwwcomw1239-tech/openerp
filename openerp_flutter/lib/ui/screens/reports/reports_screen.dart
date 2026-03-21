@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' hide TextDirection;
 import '../../../logic/providers/financial_reports_provider.dart';
 import '../../../services/pdf_export_service.dart';
 import '../../../core/theme/app_theme.dart';
@@ -135,7 +135,7 @@ class _ReportsScreenState extends ConsumerState<ReportsScreen> with SingleTicker
             Container(
               decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16), boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.1), blurRadius: 10)]),
               child: DataTable(
-                headingRowColor: WidgetStateProperty.all(AppTheme.primaryColor.withOpacity(0.1)),
+                headingRowColor: MaterialStateProperty.all(AppTheme.primaryColor.withOpacity(0.1)),
                 columns: const [
                   DataColumn(label: Text('رقم الحساب')),
                   DataColumn(label: Text('اسم الحساب')),
@@ -150,7 +150,7 @@ class _ReportsScreenState extends ConsumerState<ReportsScreen> with SingleTicker
                     DataCell(Text(item.credit > 0 ? _formatCurrency(item.credit) : '-', style: TextStyle(color: AppTheme.successColor))),
                   ])),
                   DataRow(
-                    color: WidgetStateProperty.all(Colors.grey[200]),
+                    color: MaterialStateProperty.all(Colors.grey[200]),
                     cells: [
                       const DataCell(Text('')),
                       const DataCell(Text('الإجمالي', style: TextStyle(fontWeight: FontWeight.bold))),
@@ -384,9 +384,9 @@ class _ReportsScreenState extends ConsumerState<ReportsScreen> with SingleTicker
       assets: bs.assets.items.map((i) => {'name': i.accountName, 'amount': i.amount}).toList(),
       totalAssets: bs.totalAssets,
       liabilities: bs.liabilities.items.map((i) => {'name': i.accountName, 'amount': i.amount}).toList(),
-      totalLiabilities: bs.totalLiabilities,
+      totalLiabilities: bs.totalLiabilitiesAndEquity,
       equity: bs.equity.items.map((i) => {'name': i.accountName, 'amount': i.amount}).toList(),
-      totalEquity: bs.totalEquity,
+      totalEquity: bs.totalAssets,
     );
     await PdfExportService.printPdf(pdfData);
   }

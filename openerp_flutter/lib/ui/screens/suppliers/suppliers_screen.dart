@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' hide TextDirection;
 
 import '../../../logic/providers/suppliers_provider.dart';
 import '../../../core/theme/app_theme.dart';
@@ -315,7 +315,7 @@ class _SuppliersScreenState extends ConsumerState<SuppliersScreen> {
       ),
       child: SingleChildScrollView(
         child: DataTable(
-          headingRowColor: WidgetStateProperty.all(AppTheme.warningColor.withOpacity(0.1)),
+          headingRowColor: MaterialStateProperty.all(AppTheme.warningColor.withOpacity(0.1)),
           columns: const [
             DataColumn(label: Text('الاسم', style: TextStyle(fontWeight: FontWeight.bold))),
             DataColumn(label: Text('البريد الإلكتروني', style: TextStyle(fontWeight: FontWeight.bold))),
@@ -520,7 +520,7 @@ class _SuppliersScreenState extends ConsumerState<SuppliersScreen> {
         onSave: (data) async {
           final notifier = ref.read(suppliersNotifierProvider.notifier);
           if (supplier != null) {
-            await notifier.update(supplier.id, data);
+            await notifier.updateItem(supplier.id, data);
           } else {
             await notifier.create(data);
           }

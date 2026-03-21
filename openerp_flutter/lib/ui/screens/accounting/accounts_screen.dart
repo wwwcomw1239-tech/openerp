@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' hide TextDirection;
 
 import '../../../logic/providers/accounts_provider.dart';
 import '../../../core/theme/app_theme.dart';
@@ -480,7 +480,7 @@ class _AccountsScreenState extends ConsumerState<AccountsScreen> {
         onSave: (data) async {
           final notifier = ref.read(accountsNotifierProvider.notifier);
           if (account != null) {
-            await notifier.update(account.id, data);
+            await notifier.updateItem(account.id, data);
           } else {
             await notifier.create(data);
           }

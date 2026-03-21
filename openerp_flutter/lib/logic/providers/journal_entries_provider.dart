@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../data/database/drift/app_database.dart';
+import '../../data/database/drift/database.dart';
 import '../../data/database/drift/database.dart';
 import 'database_provider.dart';
 import 'accounts_provider.dart';

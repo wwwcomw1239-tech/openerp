@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../data/database/drift/app_database.dart';
+import '../../data/database/drift/database.dart';
 import '../../data/database/drift/database.dart';
 import 'database_provider.dart';
 
@@ -255,7 +255,7 @@ class CategoriesNotifier extends _$CategoriesNotifier {
     );
   }
 
-  Future<void> update(String id, CategoryFormData data) async {
+  Future<void> updateItem(String id, CategoryFormData data) async {
     final db = ref.read(databaseProvider);
     await (db.update(db.categories)..where((t) => t.id.equals(id))).write(
       CategoriesCompanion(
@@ -405,7 +405,7 @@ class ProductsNotifier extends _$ProductsNotifier {
     );
   }
 
-  Future<void> update(String id, ProductFormData data) async {
+  Future<void> updateItem(String id, ProductFormData data) async {
     final db = ref.read(databaseProvider);
     await (db.update(db.products)..where((t) => t.id.equals(id))).write(
       ProductsCompanion(
