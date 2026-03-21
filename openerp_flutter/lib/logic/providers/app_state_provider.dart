@@ -10,7 +10,7 @@ enum AppLocale {
 
   final String code;
   final String name;
-  
+
   const AppLocale(this.code, this.name);
 }
 
@@ -51,36 +51,29 @@ class AppState {
 }
 
 /// App state notifier
-@riverpod
+/// Uses keepAlive: true to persist app state
+@Riverpod(keepAlive: true)
 class AppStateNotifier extends _$AppStateNotifier {
   @override
   AppState build() {
-    _loadSettings();
     return const AppState();
   }
-  
-  /// Load saved settings from SharedPreferences
-  Future<void> _loadSettings() async {
-    // TODO: Load from SharedPreferences
-  }
-  
+
   /// Set locale
-  Future<void> setLocale(AppLocale locale) async {
+  void setLocale(AppLocale locale) {
     state = state.copyWith(locale: locale);
-    // TODO: Save to SharedPreferences
   }
-  
+
   /// Set theme mode
-  Future<void> setThemeMode(AppThemeMode themeMode) async {
+  void setThemeMode(AppThemeMode themeMode) {
     state = state.copyWith(themeMode: themeMode);
-    // TODO: Save to SharedPreferences
   }
-  
+
   /// Toggle sidebar
   void toggleSidebar() {
     state = state.copyWith(isSidebarExpanded: !state.isSidebarExpanded);
   }
-  
+
   /// Set active module
   void setActiveModule(String module) {
     state = state.copyWith(activeModule: module);

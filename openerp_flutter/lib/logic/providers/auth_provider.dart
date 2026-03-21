@@ -67,21 +67,13 @@ class AuthUnauthenticated extends AuthState {
 }
 
 /// Authentication state notifier
-@riverpod
+/// Uses keepAlive: true to persist auth state across the app
+@Riverpod(keepAlive: true)
 class Auth extends _$Auth {
   @override
   AuthState build() {
     // Start with unauthenticated - no async check needed
-    // In production, you would check SharedPreferences here synchronously
     return const AuthUnauthenticated();
-  }
-
-  /// Check if user is already logged in (call this manually if needed)
-  Future<void> checkAuthStatus() async {
-    state = const AuthLoading();
-    // TODO: Check SharedPreferences for saved session
-    await Future.delayed(const Duration(milliseconds: 100));
-    state = const AuthUnauthenticated();
   }
 
   /// Login with email and password
@@ -114,7 +106,6 @@ class Auth extends _$Auth {
   /// Logout current user
   Future<void> logout() async {
     state = const AuthLoading();
-    // TODO: Clear SharedPreferences
     await Future.delayed(const Duration(milliseconds: 100));
     state = const AuthUnauthenticated();
   }

@@ -101,12 +101,18 @@ class SplashScreen extends StatelessWidget {
   }
 }
 
-/// Router provider
-@riverpod
+/// Key for navigator state
+final rootNavigatorKey = GlobalKey<NavigatorState>();
+
+/// Router provider - NOT auto-dispose to maintain navigation state
+/// Uses keepAlive: true to prevent the router from being disposed
+@Riverpod(keepAlive: true)
 GoRouter router(RouterRef ref) {
+  // Listen to auth state changes for redirection
   final authState = ref.watch(authProvider);
 
   return GoRouter(
+    navigatorKey: rootNavigatorKey,
     debugLogDiagnostics: true,
     initialLocation: Routes.dashboard,
     redirect: (context, state) {
@@ -114,7 +120,7 @@ GoRouter router(RouterRef ref) {
 
       // Handle different auth states
       if (authState is AuthLoading) {
-        // Don't redirect during loading - let splash show
+        // Don't redirect during loading
         return null;
       }
 
@@ -131,13 +137,6 @@ GoRouter router(RouterRef ref) {
       return null;
     },
     routes: [
-      // Splash route for loading state
-      GoRoute(
-        path: '/splash',
-        name: 'splash',
-        builder: (context, state) => const SplashScreen(),
-      ),
-
       // Auth routes
       GoRoute(
         path: Routes.login,
