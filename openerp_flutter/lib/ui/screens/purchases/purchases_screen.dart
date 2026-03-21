@@ -1,3 +1,4 @@
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -35,7 +36,7 @@ class _PurchasesScreenState extends ConsumerState<PurchasesScreen> {
     final isTablet = MediaQuery.of(context).size.width > 800;
 
     return Directionality(
-      textDirection: TextDirection.rtl,
+      textDirection: ui.TextDirection.rtl,
       child: Scaffold(
         backgroundColor: const Color(0xFFF5F5F5),
         body: Column(
@@ -378,10 +379,10 @@ class _PurchasesScreenState extends ConsumerState<PurchasesScreen> {
               border: Border.all(color: Colors.grey[200]!),
             ),
             child: DataTable(
-              headingRowColor: WidgetStateProperty.all(AppTheme.warningColor.withOpacity(0.1)),
+              headingRowColor: MaterialStateProperty.all(AppTheme.warningColor.withOpacity(0.1)),
               columns: const [
                 DataColumn(label: Text('المنتج')),
-                DataColumn(label: 'الكمية'),
+                DataColumn(label: Text('الكمية')),
                 DataColumn(label: Text('السعر')),
                 DataColumn(label: Text('الإجمالي')),
               ],
@@ -675,17 +676,17 @@ class _PurchasesScreenState extends ConsumerState<PurchasesScreen> {
 }
 
 // Purchase Form Dialog with multi-item support
-class PurchaseFormDialog extends StatefulWidget {
+class PurchaseFormDialog extends ConsumerStatefulWidget {
   final PurchaseModel? purchase;
   final Future<void> Function(PurchaseFormData) onSave;
 
   const PurchaseFormDialog({super.key, this.purchase, required this.onSave});
 
   @override
-  State<PurchaseFormDialog> createState() => _PurchaseFormDialogState();
+  ConsumerState<PurchaseFormDialog> createState() => _PurchaseFormDialogState();
 }
 
-class _PurchaseFormDialogState extends State<PurchaseFormDialog> {
+class _PurchaseFormDialogState extends ConsumerState<PurchaseFormDialog> {
   final _formKey = GlobalKey<FormState>();
   late PurchaseFormData _formData;
   bool _isLoading = false;
@@ -709,7 +710,7 @@ class _PurchaseFormDialogState extends State<PurchaseFormDialog> {
         width: 700,
         constraints: const BoxConstraints(maxHeight: 800),
         child: Directionality(
-          textDirection: TextDirection.rtl,
+          textDirection: ui.TextDirection.rtl,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [

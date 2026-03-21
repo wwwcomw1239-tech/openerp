@@ -1,3 +1,4 @@
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -26,7 +27,7 @@ class _JournalEntriesScreenState extends ConsumerState<JournalEntriesScreen> {
     final isDesktop = MediaQuery.of(context).size.width > 1200;
 
     return Directionality(
-      textDirection: TextDirection.rtl,
+      textDirection: ui.TextDirection.rtl,
       child: Scaffold(
         backgroundColor: const Color(0xFFF5F5F5),
         body: Column(
@@ -334,7 +335,7 @@ class _JournalEntriesScreenState extends ConsumerState<JournalEntriesScreen> {
               border: Border.all(color: Colors.grey[200]!),
             ),
             child: DataTable(
-              headingRowColor: WidgetStateProperty.all(AppTheme.primaryColor.withOpacity(0.1)),
+              headingRowColor: MaterialStateProperty.all(AppTheme.primaryColor.withOpacity(0.1)),
               columns: const [
                 DataColumn(label: Text('الحساب')),
                 DataColumn(label: Text('البيان')),
@@ -654,7 +655,7 @@ class _JournalEntryFormDialogState extends State<JournalEntryFormDialog> {
         width: 700,
         constraints: const BoxConstraints(maxHeight: 800),
         child: Directionality(
-          textDirection: TextDirection.rtl,
+          textDirection: ui.TextDirection.rtl,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [

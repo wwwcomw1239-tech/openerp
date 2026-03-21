@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../data/database/drift/app_database.dart';
 import '../../data/database/drift/database.dart';
 import 'database_provider.dart';
 
@@ -234,7 +233,7 @@ class CustomersNotifier extends _$CustomersNotifier {
   }
 
   /// Update existing customer
-  Future<void> update(String id, CustomerFormData data) async {
+  Future<void> updateItem(String id, CustomerFormData data) async {
     final db = ref.read(databaseProvider);
     final now = DateTime.now();
     

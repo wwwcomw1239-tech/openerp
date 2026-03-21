@@ -1,7 +1,7 @@
 import 'dart:io';
-import 'package:pdf/pdf.dart';
+import 'package:pdf/pdf.dart' hide TextDirection;
 import 'package:pdf/widgets.dart' as pw;
-import 'package:printing/printing.dart';
+import 'package:printing/printing.dart' hide TextDirection;
 import 'package:path_provider/path_provider.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
@@ -84,10 +84,9 @@ class PdfExportService {
               pw.SizedBox(height: 20),
               pw.Table(
                 border: pw.TableBorder.all(color: PdfColors.grey300),
-                textDirection: pw.TextDirection.rtl,
                 children: [
                   pw.TableRow(
-                    decoration: const pw.BoxDecoration(color: PdfColors.blue50),
+                    decoration: pw.BoxDecoration(color: PdfColors.blue50),
                     children: [
                       pw.Padding(padding: const pw.EdgeInsets.all(8), child: pw.Text('البيان', style: arabicBoldStyle)),
                       pw.Padding(padding: const pw.EdgeInsets.all(8), child: pw.Text('الكمية', style: arabicBoldStyle)),
@@ -173,7 +172,7 @@ class PdfExportService {
                 border: pw.TableBorder.all(color: PdfColors.grey300),
                 children: [
                   pw.TableRow(
-                    decoration: const pw.BoxDecoration(color: PdfColors.blue50),
+                    decoration: pw.BoxDecoration(color: PdfColors.blue50),
                     children: [
                       pw.Padding(padding: const pw.EdgeInsets.all(8), child: pw.Text('رقم الحساب', style: arabicBoldStyle)),
                       pw.Padding(padding: const pw.EdgeInsets.all(8), child: pw.Text('اسم الحساب', style: arabicBoldStyle)),
@@ -188,7 +187,7 @@ class PdfExportService {
                     pw.Padding(padding: const pw.EdgeInsets.all(8), child: pw.Text(item['credit'] > 0 ? formatCurrency(item['credit']) : '-', style: arabicStyle)),
                   ])),
                   pw.TableRow(
-                    decoration: const pw.BoxDecoration(color: PdfColors.grey200),
+                    decoration: pw.BoxDecoration(color: PdfColors.grey200),
                     children: [
                       pw.Padding(padding: const pw.EdgeInsets.all(8), child: pw.Text('')),
                       pw.Padding(padding: const pw.EdgeInsets.all(8), child: pw.Text('الإجمالي', style: arabicBoldStyle)),

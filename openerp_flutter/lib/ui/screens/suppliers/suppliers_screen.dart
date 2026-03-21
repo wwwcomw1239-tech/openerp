@@ -1,3 +1,4 @@
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -31,7 +32,7 @@ class _SuppliersScreenState extends ConsumerState<SuppliersScreen> {
     final isDesktop = MediaQuery.of(context).size.width > 1000;
     
     return Directionality(
-      textDirection: TextDirection.rtl,
+      textDirection: ui.TextDirection.rtl,
       child: Scaffold(
         backgroundColor: const Color(0xFFF5F5F5),
         body: Column(
@@ -315,7 +316,7 @@ class _SuppliersScreenState extends ConsumerState<SuppliersScreen> {
       ),
       child: SingleChildScrollView(
         child: DataTable(
-          headingRowColor: WidgetStateProperty.all(AppTheme.warningColor.withOpacity(0.1)),
+          headingRowColor: MaterialStateProperty.all(AppTheme.warningColor.withOpacity(0.1)),
           columns: const [
             DataColumn(label: Text('الاسم', style: TextStyle(fontWeight: FontWeight.bold))),
             DataColumn(label: Text('البريد الإلكتروني', style: TextStyle(fontWeight: FontWeight.bold))),
@@ -520,7 +521,7 @@ class _SuppliersScreenState extends ConsumerState<SuppliersScreen> {
         onSave: (data) async {
           final notifier = ref.read(suppliersNotifierProvider.notifier);
           if (supplier != null) {
-            await notifier.update(supplier.id, data);
+            await notifier.updateItem(supplier.id, data);
           } else {
             await notifier.create(data);
           }
@@ -608,7 +609,7 @@ class _SupplierFormDialogState extends State<SupplierFormDialog> {
         width: isDesktop ? 600 : null,
         constraints: const BoxConstraints(maxHeight: 700),
         child: Directionality(
-          textDirection: TextDirection.rtl,
+          textDirection: ui.TextDirection.rtl,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -857,7 +858,7 @@ class SupplierDetailsDialog extends StatelessWidget {
       child: Container(
         width: 500,
         child: Directionality(
-          textDirection: TextDirection.rtl,
+          textDirection: ui.TextDirection.rtl,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,

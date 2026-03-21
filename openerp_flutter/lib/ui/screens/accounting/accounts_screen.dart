@@ -1,3 +1,4 @@
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -25,7 +26,7 @@ class _AccountsScreenState extends ConsumerState<AccountsScreen> {
     final isDesktop = MediaQuery.of(context).size.width > 1000;
 
     return Directionality(
-      textDirection: TextDirection.rtl,
+      textDirection: ui.TextDirection.rtl,
       child: Scaffold(
         backgroundColor: const Color(0xFFF5F5F5),
         body: Column(
@@ -480,7 +481,7 @@ class _AccountsScreenState extends ConsumerState<AccountsScreen> {
         onSave: (data) async {
           final notifier = ref.read(accountsNotifierProvider.notifier);
           if (account != null) {
-            await notifier.update(account.id, data);
+            await notifier.updateItem(account.id, data);
           } else {
             await notifier.create(data);
           }
@@ -544,7 +545,7 @@ class _AccountFormDialogState extends State<AccountFormDialog> {
       child: Container(
         width: 500,
         child: Directionality(
-          textDirection: TextDirection.rtl,
+          textDirection: ui.TextDirection.rtl,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -714,7 +715,7 @@ class AccountDetailsDialog extends StatelessWidget {
       child: Container(
         width: 400,
         child: Directionality(
-          textDirection: TextDirection.rtl,
+          textDirection: ui.TextDirection.rtl,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [

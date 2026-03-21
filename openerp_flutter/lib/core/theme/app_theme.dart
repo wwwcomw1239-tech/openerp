@@ -110,12 +110,12 @@ class AppTheme {
       
       // Data table theme
       dataTableTheme: DataTableThemeData(
-        headingRowColor: WidgetStateProperty.all(primaryColor),
+        headingRowColor: MaterialStateProperty.all(primaryColor),
         headingTextStyle: const TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.w600,
         ),
-        dataRowColor: WidgetStateProperty.all(Colors.white),
+        dataRowColor: MaterialStateProperty.all(Colors.white),
         dividerThickness: 1,
       ),
       
@@ -251,12 +251,12 @@ class AppTheme {
       
       // Data table theme
       dataTableTheme: DataTableThemeData(
-        headingRowColor: WidgetStateProperty.all(const Color(0xFF2D2D2D)),
+        headingRowColor: MaterialStateProperty.all(const Color(0xFF2D2D2D)),
         headingTextStyle: const TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.w600,
         ),
-        dataRowColor: WidgetStateProperty.all(const Color(0xFF1E1E1E)),
+        dataRowColor: MaterialStateProperty.all(const Color(0xFF1E1E1E)),
         dividerThickness: 1,
       ),
       

@@ -1,10 +1,30 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fl_chart/fl_chart.dart';
+import 'package:fl_chart/fl_chart.dart' hide TextDirection;
 import 'package:intl/intl.dart';
 
 import '../../../logic/providers/dashboard_provider.dart';
 import '../../../core/theme/app_theme.dart';
+
+/// Safe currency formatter that works in release mode
+class SafeCurrencyFormatter {
+  static String format(double amount) {
+    try {
+      // Try Arabic locale first
+      final formatter = NumberFormat.currency(
+        locale: 'ar_SA',
+        symbol: 'ر.س ',
+        decimalDigits: 2,
+      );
+      return formatter.format(amount);
+    } catch (e) {
+      // Fallback to simple formatting if locale fails
+      return '${amount.toStringAsFixed(2)} ر.س';
+    }
+  }
+}
 
 /// Dashboard screen - Main analytics and overview with fl_chart
 class DashboardScreen extends ConsumerWidget {
@@ -22,7 +42,7 @@ class DashboardScreen extends ConsumerWidget {
     final isTablet = MediaQuery.of(context).size.width > 800;
     
     return Directionality(
-      textDirection: TextDirection.rtl,
+      textDirection: ui.TextDirection.rtl,
       child: Scaffold(
         backgroundColor: const Color(0xFFF5F5F5),
         body: statsAsync.when(
@@ -1069,12 +1089,7 @@ class DashboardScreen extends ConsumerWidget {
   }
 
   String _formatCurrency(double amount) {
-    final formatter = NumberFormat.currency(
-      locale: 'ar_SA',
-      symbol: 'ر.س',
-      decimalDigits: 2,
-    );
-    return formatter.format(amount);
+    return SafeCurrencyFormatter.format(amount);
   }
 
   String _formatCompactCurrency(double amount) {

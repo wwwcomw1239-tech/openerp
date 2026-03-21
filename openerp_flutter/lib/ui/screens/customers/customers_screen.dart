@@ -1,3 +1,4 @@
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -31,7 +32,7 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
     final isDesktop = MediaQuery.of(context).size.width > 1000;
     
     return Directionality(
-      textDirection: TextDirection.rtl,
+      textDirection: ui.TextDirection.rtl,
       child: Scaffold(
         backgroundColor: const Color(0xFFF5F5F5),
         body: Column(
@@ -315,7 +316,7 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
       ),
       child: SingleChildScrollView(
         child: DataTable(
-          headingRowColor: WidgetStateProperty.all(AppTheme.primaryColor.withOpacity(0.1)),
+          headingRowColor: MaterialStateProperty.all(AppTheme.primaryColor.withOpacity(0.1)),
           columns: const [
             DataColumn(label: Text('الاسم', style: TextStyle(fontWeight: FontWeight.bold))),
             DataColumn(label: Text('البريد الإلكتروني', style: TextStyle(fontWeight: FontWeight.bold))),
@@ -520,7 +521,7 @@ class _CustomersScreenState extends ConsumerState<CustomersScreen> {
         onSave: (data) async {
           final notifier = ref.read(customersNotifierProvider.notifier);
           if (customer != null) {
-            await notifier.update(customer.id, data);
+            await notifier.updateItem(customer.id, data);
           } else {
             await notifier.create(data);
           }
@@ -608,7 +609,7 @@ class _CustomerFormDialogState extends State<CustomerFormDialog> {
         width: isDesktop ? 600 : null,
         constraints: const BoxConstraints(maxHeight: 700),
         child: Directionality(
-          textDirection: TextDirection.rtl,
+          textDirection: ui.TextDirection.rtl,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -765,7 +766,7 @@ class _CustomerFormDialogState extends State<CustomerFormDialog> {
                           initialValue: _formData.creditLimit.toString(),
                           decoration: const InputDecoration(
                             labelText: 'حد الائتمان',
-                            prefixIcon: Icon(Icons.credit_limit),
+                            prefixIcon: Icon(Icons.account_balance_wallet),
                             suffixText: 'ر.س',
                           ),
                           keyboardType: TextInputType.number,
@@ -867,7 +868,7 @@ class CustomerDetailsDialog extends StatelessWidget {
       child: Container(
         width: 500,
         child: Directionality(
-          textDirection: TextDirection.rtl,
+          textDirection: ui.TextDirection.rtl,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -935,7 +936,7 @@ class CustomerDetailsDialog extends StatelessWidget {
                       isHighlighted: true,
                     ),
                     _buildDetailRow(
-                      Icons.credit_limit,
+                      Icons.account_balance_wallet,
                       'حد الائتمان',
                       NumberFormat.currency(locale: 'ar_SA', symbol: 'ر.س').format(customer.creditLimit),
                     ),

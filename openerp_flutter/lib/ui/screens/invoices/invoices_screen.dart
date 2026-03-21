@@ -1,3 +1,4 @@
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -35,7 +36,7 @@ class _InvoicesScreenState extends ConsumerState<InvoicesScreen> {
     final isTablet = MediaQuery.of(context).size.width > 800;
 
     return Directionality(
-      textDirection: TextDirection.rtl,
+      textDirection: ui.TextDirection.rtl,
       child: Scaffold(
         backgroundColor: const Color(0xFFF5F5F5),
         body: Column(
@@ -386,7 +387,7 @@ class _InvoicesScreenState extends ConsumerState<InvoicesScreen> {
               border: Border.all(color: Colors.grey[200]!),
             ),
             child: DataTable(
-              headingRowColor: WidgetStateProperty.all(AppTheme.primaryColor.withOpacity(0.1)),
+              headingRowColor: MaterialStateProperty.all(AppTheme.primaryColor.withOpacity(0.1)),
               columns: const [
                 DataColumn(label: Text('المنتج')),
                 DataColumn(label: Text('الكمية')),
@@ -662,17 +663,17 @@ class _InvoicesScreenState extends ConsumerState<InvoicesScreen> {
 }
 
 // Invoice Form Dialog with multi-item support
-class InvoiceFormDialog extends StatefulWidget {
+class InvoiceFormDialog extends ConsumerStatefulWidget {
   final InvoiceModel? invoice;
   final Future<void> Function(InvoiceFormData) onSave;
 
   const InvoiceFormDialog({super.key, this.invoice, required this.onSave});
 
   @override
-  State<InvoiceFormDialog> createState() => _InvoiceFormDialogState();
+  ConsumerState<InvoiceFormDialog> createState() => _InvoiceFormDialogState();
 }
 
-class _InvoiceFormDialogState extends State<InvoiceFormDialog> {
+class _InvoiceFormDialogState extends ConsumerState<InvoiceFormDialog> {
   final _formKey = GlobalKey<FormState>();
   late InvoiceFormData _formData;
   bool _isLoading = false;
@@ -696,7 +697,7 @@ class _InvoiceFormDialogState extends State<InvoiceFormDialog> {
         width: 700,
         constraints: const BoxConstraints(maxHeight: 800),
         child: Directionality(
-          textDirection: TextDirection.rtl,
+          textDirection: ui.TextDirection.rtl,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [

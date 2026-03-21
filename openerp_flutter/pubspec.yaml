@@ -16,7 +16,7 @@ dependencies:
   
   # Database - Drift (SQLite)
   drift: ^2.14.1
-  sqlite3_flutter_libs: ^0.5.18
+  sqlite3_flutter_libs: 0.5.17
   
   # Navigation
   go_router: ^13.1.0

@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../data/database/drift/app_database.dart';
+import '../../data/database/drift/database.dart';
 import 'database_provider.dart';
 import 'accounts_provider.dart';
 import 'journal_entries_provider.dart';
@@ -60,7 +60,7 @@ Future<TrialBalance> trialBalance(TrialBalanceRef ref) async {
       .get();
 
   // Group lines by account
-  final accountLines = <String, List<JournalLine>>{};
+  final accountLines = <String, List<dynamic>>{};
   for (final line in allLines) {
     accountLines.putIfAbsent(line.accountId, () => []).add(line);
   }
@@ -269,6 +269,12 @@ class BalanceSheet {
     required this.isBalanced,
     required this.asOfDate,
   });
+
+  /// Get total liabilities from the liabilities section
+  double get totalLiabilities => liabilities.total;
+
+  /// Get total equity from the equity section
+  double get totalEquity => equity.total;
 }
 
 @riverpod

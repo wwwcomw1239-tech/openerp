@@ -21,7 +21,7 @@ class AuthUser {
 
   bool get isAdmin => role == 'admin';
   bool get isManager => role == 'manager' || isAdmin;
-  
+
   factory AuthUser.fromJson(Map<String, dynamic> json) {
     return AuthUser(
       id: json['id'] as String,
@@ -31,7 +31,7 @@ class AuthUser {
       avatar: json['avatar'] as String?,
     );
   }
-  
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -71,22 +71,27 @@ class AuthUnauthenticated extends AuthState {
 class Auth extends _$Auth {
   @override
   AuthState build() {
-    _checkAuthStatus();
-    return const AuthLoading();
+    // Start with unauthenticated - no async check needed
+    // In production, you would check SharedPreferences here synchronously
+    return const AuthUnauthenticated();
   }
-  
-  /// Check if user is already logged in
-  Future<void> _checkAuthStatus() async {
+
+  /// Check if user is already logged in (call this manually if needed)
+  Future<void> checkAuthStatus() async {
+    state = const AuthLoading();
     // TODO: Check SharedPreferences for saved session
+    await Future.delayed(const Duration(milliseconds: 100));
     state = const AuthUnauthenticated();
   }
-  
+
   /// Login with email and password
   Future<bool> login(String email, String password) async {
     state = const AuthLoading();
-    
+
     try {
       // Demo login - in production, verify against database
+      await Future.delayed(const Duration(milliseconds: 500)); // Simulate network
+
       if (email == 'admin@erp.com' && password == 'admin123') {
         final user = AuthUser(
           id: 'user-1',
@@ -97,7 +102,7 @@ class Auth extends _$Auth {
         state = AuthAuthenticated(user);
         return true;
       }
-      
+
       state = const AuthUnauthenticated('بيانات الدخول غير صحيحة');
       return false;
     } catch (e) {
@@ -105,14 +110,15 @@ class Auth extends _$Auth {
       return false;
     }
   }
-  
+
   /// Logout current user
   Future<void> logout() async {
     state = const AuthLoading();
     // TODO: Clear SharedPreferences
+    await Future.delayed(const Duration(milliseconds: 100));
     state = const AuthUnauthenticated();
   }
-  
+
   /// Get current user (null if not authenticated)
   AuthUser? get currentUser {
     final currentState = state;
@@ -121,7 +127,7 @@ class Auth extends _$Auth {
     }
     return null;
   }
-  
+
   /// Check if user is authenticated
   bool get isAuthenticated => state is AuthAuthenticated;
 }

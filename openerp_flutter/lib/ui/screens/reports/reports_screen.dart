@@ -1,3 +1,4 @@
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -33,7 +34,7 @@ class _ReportsScreenState extends ConsumerState<ReportsScreen> with SingleTicker
   @override
   Widget build(BuildContext context) {
     return Directionality(
-      textDirection: TextDirection.rtl,
+      textDirection: ui.TextDirection.rtl,
       child: Scaffold(
         backgroundColor: const Color(0xFFF5F5F5),
         body: Column(
@@ -135,7 +136,7 @@ class _ReportsScreenState extends ConsumerState<ReportsScreen> with SingleTicker
             Container(
               decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16), boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.1), blurRadius: 10)]),
               child: DataTable(
-                headingRowColor: WidgetStateProperty.all(AppTheme.primaryColor.withOpacity(0.1)),
+                headingRowColor: MaterialStateProperty.all(AppTheme.primaryColor.withOpacity(0.1)),
                 columns: const [
                   DataColumn(label: Text('رقم الحساب')),
                   DataColumn(label: Text('اسم الحساب')),
@@ -150,7 +151,7 @@ class _ReportsScreenState extends ConsumerState<ReportsScreen> with SingleTicker
                     DataCell(Text(item.credit > 0 ? _formatCurrency(item.credit) : '-', style: TextStyle(color: AppTheme.successColor))),
                   ])),
                   DataRow(
-                    color: WidgetStateProperty.all(Colors.grey[200]),
+                    color: MaterialStateProperty.all(Colors.grey[200]),
                     cells: [
                       const DataCell(Text('')),
                       const DataCell(Text('الإجمالي', style: TextStyle(fontWeight: FontWeight.bold))),

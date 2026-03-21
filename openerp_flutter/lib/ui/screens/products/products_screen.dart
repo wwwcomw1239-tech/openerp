@@ -1,3 +1,4 @@
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -42,7 +43,7 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen>
     final isDesktop = MediaQuery.of(context).size.width > 1000;
 
     return Directionality(
-      textDirection: TextDirection.rtl,
+      textDirection: ui.TextDirection.rtl,
       child: Scaffold(
         backgroundColor: const Color(0xFFF5F5F5),
         body: Column(
@@ -322,7 +323,7 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen>
       ),
       child: SingleChildScrollView(
         child: DataTable(
-          headingRowColor: WidgetStateProperty.all(AppTheme.primaryColor.withOpacity(0.1)),
+          headingRowColor: MaterialStateProperty.all(AppTheme.primaryColor.withOpacity(0.1)),
           columns: const [
             DataColumn(label: Text('المنتج', style: TextStyle(fontWeight: FontWeight.bold))),
             DataColumn(label: Text('SKU', style: TextStyle(fontWeight: FontWeight.bold))),
@@ -565,7 +566,7 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen>
         ],
       ),
       child: DataTable(
-        headingRowColor: WidgetStateProperty.all(AppTheme.primaryColor.withOpacity(0.1)),
+        headingRowColor: MaterialStateProperty.all(AppTheme.primaryColor.withOpacity(0.1)),
         columns: const [
           DataColumn(label: Text('التصنيف', style: TextStyle(fontWeight: FontWeight.bold))),
           DataColumn(label: Text('الوصف', style: TextStyle(fontWeight: FontWeight.bold))),
@@ -727,7 +728,7 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen>
           onSave: (data) async {
             final notifier = ref.read(productsNotifierProvider.notifier);
             if (product != null) {
-              await notifier.update(product.id, data);
+              await notifier.updateItem(product.id, data);
             } else {
               await notifier.create(data);
             }
@@ -751,7 +752,7 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen>
         onSave: (data) async {
           final notifier = ref.read(categoriesNotifierProvider.notifier);
           if (category != null) {
-            await notifier.update(category.id, data);
+            await notifier.updateItem(category.id, data);
           } else {
             await notifier.create(data);
           }
@@ -843,7 +844,7 @@ class _ProductFormDialogState extends State<ProductFormDialog> {
         width: 600,
         constraints: const BoxConstraints(maxHeight: 700),
         child: Directionality(
-          textDirection: TextDirection.rtl,
+          textDirection: ui.TextDirection.rtl,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -1098,7 +1099,7 @@ class _CategoryFormDialogState extends State<CategoryFormDialog> {
       child: Container(
         width: 450,
         child: Directionality(
-          textDirection: TextDirection.rtl,
+          textDirection: ui.TextDirection.rtl,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
