@@ -622,17 +622,17 @@ class _JournalEntriesScreenState extends ConsumerState<JournalEntriesScreen> {
 }
 
 // Journal Entry Form Dialog
-class JournalEntryFormDialog extends StatefulWidget {
+class JournalEntryFormDialog extends ConsumerStatefulWidget {
   final JournalEntryModel? entry;
   final Future<void> Function(JournalEntryFormData) onSave;
 
   const JournalEntryFormDialog({super.key, this.entry, required this.onSave});
 
   @override
-  State<JournalEntryFormDialog> createState() => _JournalEntryFormDialogState();
+  ConsumerState<JournalEntryFormDialog> createState() => _JournalEntryFormDialogState();
 }
 
-class _JournalEntryFormDialogState extends State<JournalEntryFormDialog> {
+class _JournalEntryFormDialogState extends ConsumerState<JournalEntryFormDialog> {
   final _formKey = GlobalKey<FormState>();
   late JournalEntryFormData _formData;
   List<JournalLineFormData> _lines = [];

@@ -89,6 +89,7 @@ class AppDatabase extends _$AppDatabase {
   }
   
   /// Close database connection
+  @override
   Future<void> close() async {
     await executor.close();
     _instance = null;
